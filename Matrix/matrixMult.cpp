@@ -11,17 +11,15 @@ void matrixMultiply(const M1& m1, const M2& m2, M3& m3)
   assert(m1.cols() == m2.rows());
   assert(m1.rows() == m3.rows());
   assert(m2.cols() == m3.cols());
-
-    for (int i=0; i < m1.rows(); ++i) {
-        for (int j=0; j < m2.cols(); ++j) {
-            double sum = 0;
-            for (int k=0; k < m1.cols(); ++k) {
-            sum += m1(i,k) * m2(k,j);
-            }
-            m3(i,j) = sum;
-        }
-        }
+  for (int i=m1.rows()-1; i >= 0; --i) {
+    for (int j=m2.cols()-1; j >= 0; --j) {
+      for (int k = m1.cols()-1; k >= 0; --k) {
+        m3[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
 }
+
 int main()
 {
   matrix<int> m1(2, 1);
